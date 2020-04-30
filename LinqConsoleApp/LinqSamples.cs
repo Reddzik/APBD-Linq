@@ -271,7 +271,9 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad7()
         {
-            var res = Emps.Select(e=> new { Praca = e.Job }).GroupBy(e => e.Praca).Count();
+            var res = Emps.GroupBy(e => e.Job,
+                                   e => Emps.Select(emp1 => emp1.Job == e.Job),
+                                   (key, value) => new {Praca= key, LiczbaPracowników = value.Count()});
         }
 
         /// <summary>
